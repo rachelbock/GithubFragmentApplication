@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import edu.lclark.githubfragmentapplication.GithubRecyclerViewAdapter;
 import edu.lclark.githubfragmentapplication.NetworkAsyncTask;
 import edu.lclark.githubfragmentapplication.R;
+import edu.lclark.githubfragmentapplication.activities.LoginActivity;
 import edu.lclark.githubfragmentapplication.activities.MainActivity;
 import edu.lclark.githubfragmentapplication.models.GithubUser;
 
@@ -38,7 +39,7 @@ public class MainActivityFragment extends Fragment implements NetworkAsyncTask.G
     ArrayList<GithubUser> mFollowers;
     private FollowerSelectedListener mListener;
 
-    private String mUserLogin = "ntiller";
+    private String mUserLogin = "";
 
 
 
@@ -54,6 +55,14 @@ public class MainActivityFragment extends Fragment implements NetworkAsyncTask.G
         return fragment;
     }
 
+    public static MainActivityFragment firstInstance (String userName) {
+        MainActivityFragment fragment = new MainActivityFragment();
+        Bundle args = new Bundle();
+        args.putString(LoginActivity.EXTRA_USER, userName);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,6 +73,9 @@ public class MainActivityFragment extends Fragment implements NetworkAsyncTask.G
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         if (getArguments() != null) {
+
+            mUserLogin = getArguments().getString(LoginActivity.EXTRA_USER);
+
             GithubUser user = getArguments().getParcelable(ARG_USER);
             if (user != null) {
                 mUserLogin = user.getLogin();

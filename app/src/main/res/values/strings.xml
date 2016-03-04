@@ -6,4 +6,13 @@
     <string name="user_button_text">Followers</string>
 
     <string name="follower_list_title">%s\'s Followers</string>
+    <string name="login_user_name_hint">GitHub User Name</string>
+    <string name="login_sign_in_button">Sign In</string>
+    <string name="github_logo">github logo</string>
+
+    <string name="login_invalid_username">Invalid User Name</string>
+    <string name="login_no_internet">You are not connected to the internet</string>
+    <string name="login_successful">Login Successful</string>
+    <string name="login_invalid_attempts">Too many invalid attempts - please try again later</string>
+
 </resources>

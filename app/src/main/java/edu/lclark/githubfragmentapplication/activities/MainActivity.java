@@ -1,11 +1,12 @@
 package edu.lclark.githubfragmentapplication.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,36 +15,40 @@ import android.widget.FrameLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import edu.lclark.githubfragmentapplication.R;
-import edu.lclark.githubfragmentapplication.fragments.UserFragment;
 import edu.lclark.githubfragmentapplication.fragments.MainActivityFragment;
+import edu.lclark.githubfragmentapplication.fragments.UserFragment;
 import edu.lclark.githubfragmentapplication.models.GithubUser;
 
 public class MainActivity extends AppCompatActivity implements MainActivityFragment.FollowerSelectedListener, UserFragment.UserListener {
 
     @Bind(R.id.activity_main_framelayout)
     FrameLayout mFrameLayout;
-
+    public static final String TAG = MainActivity.class.getSimpleName();
+    String userName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.d(TAG, userName);
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        userName = getIntent().getStringExtra(LoginActivity.EXTRA_USER);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(view.getContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.activity_main_framelayout, new MainActivityFragment());
+        transaction.replace(R.id.activity_main_framelayout, MainActivityFragment.firstInstance(userName));
         transaction.commit();
 
 
@@ -86,4 +91,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityFragm
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+
+//    @Override
+//    public void onBackPressed() {
+//            Intent intent = new Intent(Intent.ACTION_MAIN);
+//            intent.addCategory(Intent.CATEGORY_HOME);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            startActivity(intent);
+//
+//    }
 }
