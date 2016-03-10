@@ -1,4 +1,4 @@
-package edu.lclark.githubfragmentapplication.models;
+package edu.lclark.githubfragmentapplication;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 
 import edu.lclark.githubfragmentapplication.fragments.TabFragment;
+import edu.lclark.githubfragmentapplication.models.GithubUser;
 
 /**
  * Created by rage on 3/9/16.
@@ -35,7 +36,6 @@ public class TabAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        String title = followers.get(position).getLogin();
-        return title;
+        return followers.get(position).getLogin();
     }
 }

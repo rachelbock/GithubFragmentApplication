@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import edu.lclark.githubfragmentapplication.R;
 import edu.lclark.githubfragmentapplication.fragments.UserFragment;
 import edu.lclark.githubfragmentapplication.models.GithubUser;
-import edu.lclark.githubfragmentapplication.models.TabAdapter;
+import edu.lclark.githubfragmentapplication.TabAdapter;
 
 public class TabbedActivity extends AppCompatActivity {
 
@@ -41,19 +41,26 @@ public class TabbedActivity extends AppCompatActivity {
         GithubUser user = (GithubUser) getIntent().getParcelableExtra(UserFragment.ARG_USER);
         setTitle(getString((R.string.follower_list_title), user.getLogin()));
 
+
         FragmentStatePagerAdapter adapter = new TabAdapter(this, getSupportFragmentManager(), followers);
         viewPager.setAdapter(adapter);
 
+        int count = adapter.getCount();
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        if (count <= 4) {
+            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        }
+        else {
+            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.activity_tabbed_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
                 startActivity(intent);
             }
         });

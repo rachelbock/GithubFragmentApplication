@@ -17,9 +17,7 @@ import butterknife.ButterKnife;
 import edu.lclark.githubfragmentapplication.R;
 import edu.lclark.githubfragmentapplication.models.GithubUser;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class TabFragment extends Fragment {
 
     public static final String ARG_TABUSER = "TabFragment.User";
@@ -28,8 +26,6 @@ public class TabFragment extends Fragment {
     ImageView userImage;
     @Bind(R.id.fragment_tab_name_textview)
     TextView userName;
-
-    private GithubUser githubUser;
 
     public TabFragment() {
         // Required empty public constructor
@@ -52,7 +48,7 @@ public class TabFragment extends Fragment {
 
         ButterKnife.bind(this, rootView);
 
-        githubUser = getArguments().getParcelable(ARG_TABUSER);
+        GithubUser githubUser = getArguments().getParcelable(ARG_TABUSER);
 
         if (githubUser == null) {
             Log.d(TAG, "github user is null");

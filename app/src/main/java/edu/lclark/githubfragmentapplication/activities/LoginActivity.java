@@ -87,7 +87,6 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTask.g
             e.printStackTrace();
         }
     }
-
     @Override
     public void onStop() {
         super.onStop();
@@ -95,6 +94,14 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTask.g
             asyncTask.cancel(true);
             asyncTask = null;
         }
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }
 
