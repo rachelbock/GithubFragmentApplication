@@ -14,5 +14,6 @@
     <string name="login_no_internet">You are not connected to the internet</string>
     <string name="login_successful">Login Successful</string>
     <string name="login_invalid_attempts">Too many invalid attempts - please try again later</string>
+    <string name="user_fragment_tabbed_followers">Tabbed Followers</string>
 
 </resources>
